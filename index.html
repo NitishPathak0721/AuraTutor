@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AuraTutor — AI Adaptive Learning System</title>
+  <meta name="description" content="AI-powered tutoring system that dynamically adapts to student learning paces, quizzes, and queries.">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div id="app">
+    <!-- Left Navigation Sidebar -->
+    <aside class="sidebar">
+      <div>
+        <div class="logo-section">
+          <div class="logo-icon">A</div>
+          <span class="logo-text">AuraTutor</span>
+        </div>
+
+        <div class="nav-label">Courses</div>
+        <div class="course-list" id="course-selector-list">
+          <!-- Dynamically populated -->
+        </div>
+      </div>
+
+      <div>
+        <div class="nav-label">Views</div>
+        <nav class="tab-nav">
+          <button class="tab-btn active" id="tab-tutor-btn" data-tab="tutor">
+            <span>📚</span> Tutor Workspace
+          </button>
+          <button class="tab-btn" id="tab-analytics-btn" data-tab="analytics">
+            <span>📈</span> Analytics & Progress
+          </button>
+        </nav>
+
+        <div class="user-profile">
+          <div class="user-avatar">SL</div>
+          <div class="user-info">
+            <span class="user-name">Student Learner</span>
+            <span class="user-title">Curious Mind</span>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Workspace Container -->
+    <main class="main-content">
+      <!-- Header Bar -->
+      <header class="header">
+        <div class="header-title-sec">
+          <h1 id="current-course-title">Select a Course</h1>
+        </div>
+        <div class="header-actions">
+          <!-- Pace Badge (Triggers Modal) -->
+          <div class="pace-badge-container pace-balanced" id="pace-trigger-badge">
+            <span class="pace-dot"></span>
+            <span class="pace-label" id="current-pace-label">Balanced</span>
+          </div>
+        </div>
+      </header>
+
+      <!-- VIEW 1: Tutor Workspace -->
+      <div class="workspace-grid" id="view-tutor">
+        <!-- Center Panel: Lessons & Quizzes -->
+        <section class="workspace-left">
+          <!-- Lesson Card -->
+          <div class="glass-card lesson-card">
+            <div class="lesson-meta">
+              <span id="lesson-chapter-num">Chapter 1 of 3</span>
+              <button class="speech-btn" id="tts-btn">
+                <span id="tts-icon">🔊</span> Listen
+              </button>
+            </div>
+            <h2 class="lesson-title" id="lesson-title">Loading Lesson...</h2>
+            <div class="lesson-body" id="lesson-body">
+              <!-- Dynamically populated -->
+            </div>
+            
+            <div class="callout-box" id="lesson-analogy">
+              <!-- Dynamically populated analogy -->
+            </div>
+            
+            <div class="takeaway-box" id="lesson-takeaway">
+              <!-- Dynamically populated takeaway -->
+            </div>
+
+            <!-- Page Navigation -->
+            <div class="lesson-nav">
+              <button class="btn-nav" id="btn-prev-chapter" disabled>
+                ← Previous
+              </button>
+              <span class="page-indicator" id="chapter-page-indicator">1 / 3</span>
+              <button class="btn-nav" id="btn-next-chapter">
+                Next Chapter →
+              </button>
+            </div>
+          </div>
+
+          <!-- Quiz Card (reveals at end of lesson slide) -->
+          <div class="glass-card quiz-card" id="quiz-container">
+            <div class="quiz-header">
+              <span class="quiz-badge" id="quiz-difficulty-badge">Balanced Question</span>
+              <h3 class="quiz-title">Knowledge Check</h3>
+            </div>
+            <p class="quiz-question" id="quiz-question-text">Loading question...</p>
+            
+            <div class="quiz-options" id="quiz-options-list">
+              <!-- Option buttons go here -->
+            </div>
+
+            <div class="quiz-feedback hidden" id="quiz-feedback-box">
+              <div class="quiz-feedback-title" id="quiz-feedback-title">Correct!</div>
+              <p id="quiz-feedback-text">Explanation goes here.</p>
+            </div>
+
+            <div style="display: flex; justify-content: flex-end; margin-top: 10px;">
+              <button class="btn-submit" id="btn-submit-quiz" disabled>Submit Answer</button>
+            </div>
+          </div>
+        </section>
+
+        <!-- Right Panel: AI Companion Chat -->
+        <section class="workspace-right">
+          <div class="chat-container">
+            <div class="chat-header">
+              <div class="chat-avatar">🤖</div>
+              <div class="chat-header-text">
+                <h3>Aura AI Tutor</h3>
+                <p id="chat-status-text">Adapting to Balanced pace</p>
+              </div>
+            </div>
+
+            <!-- Message log -->
+            <div class="chat-messages" id="chat-messages-container">
+              <!-- Dynamic bubbles -->
+            </div>
+
+            <!-- Chat Suggestions -->
+            <div class="chat-suggestions" id="chat-suggestions-container">
+              <!-- Dynamic buttons based on current pace -->
+            </div>
+
+            <!-- Input bar -->
+            <div class="chat-input-area">
+              <input type="text" class="chat-input" id="chat-input-field" placeholder="Ask your AI Tutor a question...">
+              <button class="btn-send" id="chat-send-btn">➔</button>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <!-- VIEW 2: Analytics & Progress -->
+      <div class="analytics-grid hidden" id="view-analytics">
+        <!-- Overview Stats Row -->
+        <div class="analytics-card-full glass-card">
+          <h2 class="analytics-header">📊 Learning Dashboard Metrics</h2>
+          <div class="stat-container-grid">
+            <div class="stat-box">
+              <span class="stat-desc">Learning Focus Score</span>
+              <span class="stat-value purple" id="metric-focus-score">92%</span>
+            </div>
+            <div class="stat-box">
+              <span class="stat-desc">Adapting Pace Speed</span>
+              <span class="stat-value teal" id="metric-pace-speed">Normal</span>
+            </div>
+            <div class="stat-box">
+              <span class="stat-desc">Mastered Concepts</span>
+              <span class="stat-value blue" id="metric-concepts-count">0 / 8</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Pace History Chart -->
+        <div class="glass-card">
+          <h2 class="analytics-header">📈 Pacing Adaptation Timeline</h2>
+          <div id="pace-chart-container">
+            <!-- Custom SVG Pace Line Chart -->
+          </div>
+        </div>
+
+        <!-- Concept Map -->
+        <div class="glass-card">
+          <h2 class="analytics-header">🗺️ Syllabus Concept Map</h2>
+          <div id="concept-map-container">
+            <!-- Custom SVG Node Link Graph -->
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- Manual Pace Selection Modal -->
+  <div class="modal-overlay hidden" id="pace-modal">
+    <div class="glass-card modal-card">
+      <h2 class="modal-header">Adjust Tutoring Pacing Mode</h2>
+      <p style="font-size: 13px; color: var(--text-secondary); margin-bottom: 8px;">
+        Our AI automatically adjusts your learning pace based on quizzes and interactions. You can also override it manually here:
+      </p>
+
+      <div class="modal-option" data-pace="comprehensive" id="modal-opt-comprehensive">
+        <div class="modal-option-header">
+          <span style="color: var(--accent-teal);">🟢</span> Comprehensive Mode (Slow)
+        </div>
+        <div class="modal-option-desc">
+          Focuses on extensive explanations, real-world analogies, step-by-step code analysis, and simpler questions. Good for beginners.
+        </div>
+      </div>
+
+      <div class="modal-option" data-pace="balanced" id="modal-opt-balanced">
+        <div class="modal-option-header">
+          <span style="color: var(--accent-blue);">🔵</span> Balanced Mode (Normal)
+        </div>
+        <div class="modal-option-desc">
+          Provides standard explanations, standard code complexity, and regular quiz questions. Ideal for general study.
+        </div>
+      </div>
+
+      <div class="modal-option" data-pace="accelerated" id="modal-opt-accelerated">
+        <div class="modal-option-header">
+          <span style="color: var(--accent-purple);">🟣</span> Accelerated Mode (Fast)
+        </div>
+        <div class="modal-option-desc">
+          Highlights concise reference formulas, memory optimization, low-level pointers, and extremely challenging quiz puzzles. Perfect for experts.
+        </div>
+      </div>
+
+      <button class="btn-close" id="btn-close-modal">Apply & Close</button>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="data.js"></script>
+  <script src="quiz.js"></script>
+  <script src="chatbot.js"></script>
+  <script src="analytics.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
